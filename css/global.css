@@ -1,0 +1,103 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-translucent: #8881;
+  --color-light: #fed;
+  --color-dark: #112;
+  --bg-light: linear-gradient(to right, #eee, var(--color-light));
+  --bg-dark: linear-gradient(to right, #333030, var(--color-dark));
+  --bg-spectrum: linear-gradient(to right, var(--color-light), var(--color-dark));
+  --bg-module: var(--color-translucent);
+}
+
+body {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: "early-sans-variable", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "oso-serif-variable", serif;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+h1, h2 {
+  margin-top: 1.5rem;
+}
+
+p {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+li {
+  margin-bottom: 0.8rem;
+}
+
+aside {
+  text-align: right;
+  font-size: 0.7em;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  table-layout: fixed;
+  min-width: 80%;
+  margin: 1rem auto;
+  border-collapse: collapse;
+}
+
+td, th {
+  text-align: left;
+  border-left: 1px solid #8884;
+  border-right: 1px solid #8884;
+  padding: 4px 6px;
+}
+
+table tr:nth-child(odd) {
+  background: #8882;
+}
+
+table tr:nth-child(even) {
+  background: #8881;
+}
+
+table tr:nth-child(1) th {
+  background: #8884;
+}
+
+figure {
+  margin: 1rem auto;
+  padding: 0.5rem;
+  width: max-content;
+}
+
+figcaption {
+  margin: 0.5rem;
+  text-align: center;
+}
+
+iframe {
+  margin: 2rem auto;
+  border: 2px solid;
+  border-radius: 0.5rem;
+  width: 100%;
+  background: repeating-conic-gradient(var(--color-translucent) 0% 25%,
+        transparent 0% 50%) 50% / 20px 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}

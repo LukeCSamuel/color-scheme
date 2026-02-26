@@ -1,0 +1,65 @@
+@import "/css/global.css";
+@import "/css/light.css";
+@import "/css/dark.css";
+@import "/css/color-module.css";
+
+code, .chip {
+  font-weight: 500;
+  font-size: 0.85em;
+  display: inline-block;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+code {
+  font-size: 1.1em;
+  background: #8882;
+}
+
+.reference {
+  font-size: 0.6em;
+}
+
+.bg-light {
+  background: var(--bg-light);
+}
+
+.bg-dark {
+  color: white;
+  background: var(--bg-dark);
+}
+
+.u {
+  position: relative;
+  font-weight: 500;
+}
+
+.u::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0.125rem;
+  background: var(--bg-spectrum);
+}
+
+.smol {
+  font-size: 0.7em;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+@media (max-width: 960px) {
+  .flex {
+    flex-direction: column;
+  }
+}
+
+.checkerboard {
+
+}

@@ -1,9 +1,330 @@
+<!DOCTYPE html>
 <html lang="en-US">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Luke Caswell Samuel">
+  <meta name="description"
+    content="An explanation and demonstration of color scheme options for web pages and how those options interact when embedding pages.">
+  <title>Web Color Schemes</title>
+  <link rel="canonical" href="https://color-scheme.caswell.dev/index.html">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" type="text/css" href="https://use.typekit.net/tju5uex.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "@id": "https://color-scheme.caswell.dev/index.html#web-color-schemes",
+      "mainEntityOfPage": "https://color-scheme.caswell.dev/index.html",
+      "headline": "Web Color Schemes",
+      "name": "Web Color Schemes",
+      "description": "An explanation and demonstration of color scheme options for web pages and how those options interact when embedding pages.",
+      "datePublished": "2026-02-26",
+      "dateModified": "2026-02-26",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/LukeCSamuel",
+        "name": "Luke Caswell Samuel",
+        "url": "https://github.com/LukeCSamuel",
+      },
+      "url": "https://color-scheme.caswell.dev/index.html",
+      "keywords": [
+        "Color Scheme",
+        "color-scheme",
+        "prefers-color-scheme",
+        "CSS",
+        "HTML",
+        "Web Development",
+        "iframe"
+      ]
+    }
+  </script>
 </head>
+
 <body>
-  <h1>Hello, World!</h1>
+  <div class="smol">Created by <a href="https://github.com/LukeCSamuel">Luke Caswell Samuel</a>, February 2026</div>
+  <article>
+    <h1 id="web-color-schemes">Web Color Schemes</h1>
+    <p>
+      Browsers have implemented a number of different tools to help support <span class="chip bg-light">Light</span> and
+      <span class="chip bg-dark">Dark</span> modes, but it can be difficult to reason about how all these tools interact
+      with one another, especially when including iframed content on a page. The purpose of this site is to demonstrate
+      and clarify how these tools interact with one another.
+    </p>
+    <h2>Color Mode Toolkit</h2>
+    <ul>
+      <li>
+        <strong><code>prefers-color-scheme</code> Media Query</strong> <span class="reference">
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme">[MDN]</a>
+        </span>
+        <p>
+          This media query responds to the <em>page's</em> <span class="u">requested scheme</span>, which can have a
+          value
+          of either <code>light</code> or <code>dark</code>.
+        </p>
+      </li>
+      <li>
+        <strong>CSS <code>color-scheme</code></strong> <span class="reference">
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme">[MDN]</a>
+        </span>
+        <p>
+          This property is used to indicate to the browser what color theme is used by an element and its descendants.
+          This
+          selects the styles applied to browser-provided UI elements, such as form elements, scroll bars, etc. It also
+          <em>overrides</em> the <span class="u">requested scheme</span> for embedded pages, for example in
+          <code>&lt;iframe&gt;</code> elements.<br>
+        </p>
+        <p>
+          If a user has explicitly selected a color scheme using options provided by the site, then this property
+          <em>should</em> be set to the corresponding value of either <code>light</code> or <code>dark</code>. If this
+          element is styled implicitly according to <code>prefers-color-scheme</code>, this property <em>should</em> be
+          set to <code>light dark</code> to imply that the element is using the current page's <span class="u">requested
+            scheme</span> so the browser-provided UI elements can match, and it can be determined if embedded pages are
+          "compatible".
+        </p>
+        <p>
+          When this property is unset or <code>normal</code>, it will assume its value according to the page's
+          <code>&lt;meta name="color-scheme"&gt;</code>.
+        </p>
+      </li>
+      <li>
+        <strong><code>&lt;meta name="color-scheme"&gt;</code></strong> <span class="reference">
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/color-scheme">[MDN]</a>
+        </span>
+        <p>
+          This meta property indicates to the browser whether or not the page supports the <span class="u">requested
+            scheme</span>. It's used for checking <span class="u">compatibility</span> of embedded pages with the host
+          page.
+        </p>
+      </li>
+    </ul>
+    <h2>Requested Scheme</h2>
+    <p>
+      Determining the <span class="u">requested scheme</span> for a page is necessary to use these tools effectively.
+      For
+      a top-level page, the <span class="u">requested scheme</span> is determined simply by the user's color scheme
+      preference for the browser. For embedded pages, the <span class="u">requested scheme</span> depends on the CSS
+      <code>color-scheme</code> of its containing element or the <code>&lt;meta name="color-scheme"&gt;</code> of its
+      containing page, combined with the user's color scheme preference.
+    </p>
+    <table>
+      <caption>Requested Scheme of an Embedded Page</caption>
+      <tr>
+        <th>Host CSS <code>color-scheme</code></th>
+        <th>Host <code>&lt;meta name="color-scheme"&gt;</code></th>
+        <th>Requested Scheme</th>
+      </tr>
+      <tr>
+        <td><code>light</code></td>
+        <td>* <span class="smol">(any value)</span></td>
+        <td><span class="chip bg-light">Light</span></td>
+      </tr>
+      <tr>
+        <td><code>dark</code></td>
+        <td>* <span class="smol">(any value)</span></td>
+        <td><span class="chip bg-dark">Dark</span></td>
+      </tr>
+      <tr>
+        <td><code>light dark</code></td>
+        <td>* <span class="smol">(any value)</span></td>
+        <td><span class="chip bg-light">Light</span> / <span class="chip bg-dark">Dark</span> <span class="smol">(user
+            preference)</span></td>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><code>light</code></td>
+        <td><span class="chip bg-light">Light</span></td>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><code>dark</code></td>
+        <td><span class="chip bg-dark">Dark</span></td>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><code>light dark</code></td>
+        <td><span class="chip bg-light">Light</span> / <span class="chip bg-dark">Dark</span> <span class="smol">(user
+            preference)</span></td>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><span class="chip bg-light">Light</span> / <span class="chip bg-dark">Dark</span> <span class="smol">(user
+            preference)</span></td>
+      </tr>
+    </table>
+    <h2>Compatibility</h2>
+    <p>
+      When an embedded page is <span class="u">compatible</span> with its host element, the browser will allow it to
+      have
+      a transparent background. Otherwise, the browser automatically applies a background color to the embedded page
+      appropriate for its expected color scheme. Only when the host <em>element</em> and the embedded <em>page</em> have
+      the same <em>expected color scheme</em>, then they are considered <span class="u">compatible</span>.
+    </p>
+    <h3>Host Element</h3>
+    <p>
+      The <em>expected color scheme</em> of the host element depends first upon its CSS <code>color-scheme</code>
+      property. When set to <code>light</code> or <code>dark</code>, then a <span class="chip bg-light">Light</span> or
+      <span class="chip bg-dark">Dark</span> color scheme is expected, respectively. When set to
+      <code>light dark</code>,
+      the expected color scheme is derived from the <span class="u">requested scheme</span>. When unset or
+      <code>normal</code>, then the <em>expected color scheme</em> is derived from the host page's
+      <code>&lt;meta name="color-scheme"&gt;</code>. Failing that, a <span class="chip bg-light">Light</span> color
+      scheme
+      is assumed. The logic is very similar to that of <span class="u">requested scheme</span> for an <em>embedded
+        page</em>, but pay special attention
+      to the last row in the following table:
+    </p>
+    <table>
+      <caption>Expected Color Scheme of Host Element</caption>
+      <tr>
+        <th>Host CSS <code>color-scheme</code></th>
+        <th>Host <code>&lt;meta name="color-scheme"&gt;</code></th>
+        <th>Expected Scheme</th>
+      </tr>
+      <tr>
+        <td><code>light</code></td>
+        <td>* <span class="smol">(any value)</span></td>
+        <td><span class="chip bg-light">Light</span></td>
+      </tr>
+      <tr>
+        <td><code>dark</code></td>
+        <td>* <span class="smol">(any value)</span></td>
+        <td><span class="chip bg-dark">Dark</span></td>
+      </tr>
+      <tr>
+        <td><code>light dark</code></td>
+        <td>* <span class="smol">(any value)</span></td>
+        <td><span class="chip bg-light">Light</span> / <span class="chip bg-dark">Dark</span> <span
+            class="smol">(requested scheme)</span></td>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><code>light</code></td>
+        <td><span class="chip bg-light">Light</span></td>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><code>dark</code></td>
+        <td><span class="chip bg-dark">Dark</span></td>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><code>light dark</code></td>
+        <td><span class="chip bg-light">Light</span> / <span class="chip bg-dark">Dark</span> <span
+            class="smol">(requested scheme)</span></td>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><span class="chip bg-light">Light</span></td>
+      </tr>
+    </table>
+    <h3>Embedded Page</h3>
+    <p>
+      The <em>expected color scheme</em> for an embedded page is determined primarily by its
+      <code>&lt;meta name="color-scheme"&gt;</code>. When unset, <code>normal</code>, or <code>light</code>, the
+      expected
+      color scheme is <span class="chip bg-light">Light</span>. When set to <code>dark</code>, the expected color scheme
+      is <span class="chip bg-dark">Dark</span>. When set to
+      <code>light dark</code>, the expected color scheme depends on the <span class="u">requested scheme</span>.
+    </p>
+    <table>
+      <caption>Expected Color Scheme of Embedded Page</caption>
+      <tr>
+        <th>Embedded <code>&lt;meta name="color-scheme"&gt;</code></th>
+        <th>Expected Scheme</th>
+      </tr>
+      <tr>
+        <td><code>normal</code> / <span class="smol">unset</span></td>
+        <td><span class="chip bg-light">Light</span></td>
+      </tr>
+      <tr>
+        <td><code>light</code></td>
+        <td><span class="chip bg-light">Light</span></td>
+      </tr>
+      <tr>
+        <td><code>dark</code></td>
+        <td><span class="chip bg-dark">Dark</span></td>
+      </tr>
+      <tr>
+        <td><code>light dark</code></td>
+        <td><span class="chip bg-light">Light</span> / <span class="chip bg-dark">Dark</span> <span
+            class="smol">(requested
+            scheme)</span></td>
+      </tr>
+    </table>
+    <h2>Demo</h2>
+    <p>
+      The effects of these settings can be visualized with the tools below. The "Page Settings" block shows the value of
+      the <code>&lt;meta name="color-scheme"&gt;</code> and CSS <code>color-scheme</code> properties for the component
+      that follows it. In this component is an "unstyled" button, which will assume styles provided by the browser, and
+      a
+      button styled according to the <code>prefers-color-scheme</code> media query. <em>This page</em> doesn't set
+      values
+      for either of these properties.
+    </p>
+    <color-settings></color-settings>
+    <color-module></color-module>
+    <p>
+      Below here are two <code>&lt;iframe&gt;</code>, one nested inside the other, along with controls to configure them
+      and see how these properties interact. Both <code>&lt;iframe&gt;</code> elements have subtle checkerboard
+      backgrounds which are visible when the embedded page is <span class="u">compatible</span> with its host.
+    </p>
+    <div class="flex">
+      <div>
+        <h5>Top Frame Options</h5>
+        <label>
+          Meta <code>color-scheme</code>:
+          <select id="topMetaSelect">
+            <option value="">-</option>
+            <option value="normal">normal</option>
+            <option value="light">light</option>
+            <option value="dark">dark</option>
+            <option value="light dark">light dark</option>
+          </select>
+        </label>
+        <label>
+          CSS <code>color-scheme</code>:
+          <select id="topCssSelect">
+            <option value="">-</option>
+            <option value="normal">normal</option>
+            <option value="light">light</option>
+            <option value="dark">dark</option>
+            <option value="light dark">light dark</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <h5>Nested Frame Options</h5>
+        <label>
+          Meta <code>color-scheme</code>:
+          <select id="nestedMetaSelect">
+            <option value="">-</option>
+            <option value="normal">normal</option>
+            <option value="light">light</option>
+            <option value="dark">dark</option>
+            <option value="light dark">light dark</option>
+          </select>
+        </label>
+        <label>
+          CSS <code>color-scheme</code>:
+          <select id="nestedCssSelect">
+            <option value="">-</option>
+            <option value="normal">normal</option>
+            <option value="light">light</option>
+            <option value="dark">dark</option>
+            <option value="light dark">light dark</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <iframe id="example-frame"></iframe>
+  </article>
+  <script async src="/js/main.js"></script>
 </body>
+
 </html>

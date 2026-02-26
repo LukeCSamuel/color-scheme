@@ -1,0 +1,15 @@
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-module: var(--color-light);
+  }
+
+  iframe {
+    border-color: var(--color-dark);
+  }
+
+  .legible {
+    color: black;
+    background: var(--bg-light);
+    border: 1px solid black;
+  }
+}

@@ -1,0 +1,49 @@
+.color-module {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  padding: 2rem 6rem;
+  width: max-content;
+  border-radius: 0.5rem;
+  background: linear-gradient(105deg, var(--color-translucent) 10%, var(--bg-module) 90%);
+}
+
+.color-module button {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  font-family: "early-sans-variable", sans-serif;
+  font-weight: 200;
+  border-radius: 0.25rem;
+  filter: drop-shadow(0 0 0.5rem);
+}
+
+.color-module button.styled {
+  border: none;
+}
+
+.color-module button.styled::after {
+  font-family: monospace;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: light) {
+  .styled {
+    color: black;
+    background: var(--bg-light);
+  }
+
+  .styled::after {
+    content: " light";
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .styled {
+    color: white;
+    background: var(--bg-dark);
+  }
+
+  .styled::after {
+    content: " dark";
+  }
+}
